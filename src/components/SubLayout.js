@@ -6,7 +6,6 @@ import { createStytchUIClient } from "@stytch/nextjs/ui";
 import Navbar from "./Navbar/Navbar";
 import { Toaster } from "react-hot-toast";
 import PopupLayout from "./Popups/PopupLayout";
-import { StytchLogin } from '@stytch/nextjs';
 
 
 const stytchClient = createStytchUIClient(
@@ -20,15 +19,6 @@ function ClientLayout({children}){
         <Navbar/>
         <Toaster/>
         <PopupLayout/>
-        {/* <StytchLogin config={{
-        products: ['oauth'],
-        oauthOptions: {
-          providers: [{
-            type: 'google',
-            one_tap: true,
-          }],
-        },
-      }} /> */}
         {children}
       </ReduxProvider>
     </StytchProvider>

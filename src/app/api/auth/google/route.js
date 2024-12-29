@@ -22,7 +22,9 @@ export async function POST(req) {
     const res = NextResponse.json({ message: 'Google Token verified successfully', session: response });
 
     const session = await getIronSession(req, res, sessionOptions);
-    session.token = response.session_jwt
+    session.id = id;
+    session.email = email;
+    session.name = name;
 
     await session.save();
 

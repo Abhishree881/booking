@@ -36,6 +36,14 @@ const DesktopHeader = () => {
         }
     }
 
+    const handleProfileClick = () => {
+        if(!user){
+            dispatch(setShowPopup({ type: "loginPopup", size: "sm" }))
+        }else{
+            router.push('/profile')
+        }
+    }
+
     return (
         <div className='nav-container'>
             <div className='navbar'>
@@ -50,9 +58,9 @@ const DesktopHeader = () => {
                         <Link className='nav-link' href="/">
                             Home
                         </Link>
-                        <Link href="/profile" className='nav-link'>
+                        <div onClick={handleProfileClick} className='nav-link'>
                             Profile
-                        </Link>
+                        </div>
                     </div>
                 </div>
                 <div className='nav-right'>

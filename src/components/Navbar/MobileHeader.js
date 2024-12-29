@@ -14,30 +14,30 @@ import { useRouter } from "next/navigation";
 
 const MobileHeader = () => {
     const [openSidebar, setOpenSidebar] = useState(false);
-    
-  return (
-    <div className='nav-container'>
-      <div className='navbar'>
-        {openSidebar? <MobileDropdown/> : null}
-        <div className='nav-left'>
-            <div className='nav-logo'>
-                <Image src={'/logo.png'} alt='logo' width={50} height={50} />
-                <div className='nav-title'>
-                    <h1>Booking App</h1>
+
+    return (
+        <div className='nav-container'>
+            <div className='navbar'>
+                {openSidebar ? <MobileDropdown /> : null}
+                <div className='nav-left'>
+                    <div className='nav-logo'>
+                        <Image src={'/logo.png'} alt='logo' width={50} height={50} />
+                        <div className='nav-title'>
+                            <h1>Booking App</h1>
+                        </div>
+                    </div>
+                </div>
+                <div className='nav-right'>
+                    <div className='nav-button' onClick={() => setOpenSidebar(!openSidebar)}>
+                        {!openSidebar ?
+                            <GiHamburgerMenu /> :
+                            <IoClose />
+                        }
+                    </div>
                 </div>
             </div>
         </div>
-        <div className='nav-right'>
-            <div className='nav-button' onClick={() => setOpenSidebar(!openSidebar)}>
-                {!openSidebar?
-                    <GiHamburgerMenu /> :
-                    <IoClose />
-                }
-            </div>
-        </div>
-      </div>
-    </div>
-  )
+    )
 }
 
 export default MobileHeader
@@ -48,7 +48,7 @@ const MobileDropdown = () => {
     const router = useRouter();
 
     const handleLoginClick = () => {
-        dispatch(setShowPopup({type: 'loginPopup', size: 'sm'}))
+        dispatch(setShowPopup({ type: 'loginPopup', size: 'sm' }))
     }
 
     const handleSignOutClick = async () => {
@@ -68,22 +68,30 @@ const MobileDropdown = () => {
         }
     }
 
+    const handleProfileClick = () => {
+        if (!user) {
+            dispatch(setShowPopup({ type: "loginPopup", size: "sm" }))
+        } else {
+            router.push('/profile')
+        }
+    }
+
     return (
         <div className='mobile-nav'>
             <div className='mobile-tiles'>
                 <Link className='mobile-tile' href="/">
                     Home
                 </Link>
-                <Link className='mobile-tile' href="/profile">
+                <div className='mobile-tile' onClick={handleProfileClick}>
                     Profile
-                </Link>
+                </div>
                 <Link className='mobile-tile' href='/seat-map'>
                     SeatMap (Available seats)
                 </Link>
                 {user ? (
                     <Button onClick={handleSignOutClick} color='default' size='large' variant='filled'>LOGOUT</Button>
                 ) : (
-                <Button onClick={handleLoginClick} color='default' size='large' variant='solid'>LOGIN</Button>
+                    <Button onClick={handleLoginClick} color='default' size='large' variant='solid'>LOGIN</Button>
                 )}
             </div>
         </div>

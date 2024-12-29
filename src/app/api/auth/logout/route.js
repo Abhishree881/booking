@@ -6,7 +6,14 @@ import { stytchClient } from '@/lib/stytchClient';
 export async function DELETE(req) {
   try {
     const session = await getIronSession(req, new Response(), sessionOptions);
+    const email = session.email ?? null;
     const token = session.token ?? null;
+    if(email){
+      session.destroy();
+      const res = NextResponse.json({ message: 'Logout successful' });
+      res.cookies.set('user_access_token', '', { maxAge: 0, path: '/' });
+      return res
+    }
     const response = await stytchClient.sessions.revoke({
       session_jwt: token,
     });

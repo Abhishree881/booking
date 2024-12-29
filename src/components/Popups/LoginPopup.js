@@ -17,13 +17,12 @@ const LoginPopup = () => {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email }),
         });
-        console.log(response)
         if (response.ok) {
           toast.success('Magic Link sent to your email successfully!');
           setLoading(false);
           dispatch(closePopup());
         } else {
-          toast.error('Something went wrong. Please try again later.');
+          toast.error('Please use gmail account only.');
           setLoading(false);
           dispatch(closePopup());
         }
