@@ -1,6 +1,10 @@
 .nav-container{
-    background-color: white;
+    background-color: rgb(255,255,255,0.95);
     height: 60px;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    z-index: 99;
 }
 
 .navbar{
@@ -34,7 +38,7 @@
     & .nav-links{
         display: flex;
         flex-direction: row;
-        gap: 16px;
+        gap: 1px;
         & .nav-link{
             padding: 8px 12px;  
             cursor: pointer;

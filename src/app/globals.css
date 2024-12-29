@@ -19,3 +19,9 @@ body {
   background: var(--background);
   font-family: 'Dm Sans', sans-serif;
 }
+
+.ant-typography,
+.ant-btn,
+.ant-input {
+  font-family: 'Dm Sans', sans-serif;
+}
