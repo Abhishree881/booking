@@ -7,6 +7,7 @@ import { MdLocationOn } from "react-icons/md";
 import { MdOutlineSwapVert } from "react-icons/md";
 import { stations } from './stationData';
 import moment from 'moment';
+import toast from 'react-hot-toast';
 
 const SearchContainer = () => {
     const [fromOptions, setFromStationOptions] = useState([]);
@@ -36,6 +37,14 @@ const SearchContainer = () => {
     const disablePastDates = (current) => {
         return current && current < moment().startOf('day');
     };
+
+    const handleSubmit = () =>{
+        if(fromStation==="" || toStation === "" || !date){
+            const emptyField = fromStation === ""? "From station" : toStation === "" ? "To station" : "Date"
+            toast.error(`Don't leave ${emptyField} empty`)
+            return;
+        } 
+    }
 
     return (
         <div className='search-container'>
@@ -73,7 +82,7 @@ const SearchContainer = () => {
                 </div>
             </div>
             <div className='search-footer'>
-                <Button size='large' type='primary'>Search</Button>
+                <Button onClick={handleSubmit} size='large' type='primary'>Search</Button>
                 <Button size='large' type='default'>PNR Enquiry</Button>
             </div>
         </div>

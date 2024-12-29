@@ -5,21 +5,24 @@ import '@/styles/navbar.css'
 import DesktopHeader from './DesktopHeader';
 import { isMobile } from 'react-device-detect';
 import MobileHeader from './MobileHeader';
+import { useDispatch, useSelector } from 'react-redux';
+import { setShowMobile } from '@/redux/features/applicationSlice';
 
 const Navbar = () => {
-  const [showMobile, setShowMobile] = useState(false);
+  const { showMobile } = useSelector((state) => state.application);
+  const dispacth = useDispatch();
 
   useEffect(()=>{
     const media = window.matchMedia("(max-width: 767px)")
     media.addEventListener("change", (e) => {
-      setShowMobile(e.matches);
+      dispacth(setShowMobile(e.matches));
     })
   })
 
   return (
-    !isMobile && !showMobile?
-        <DesktopHeader/> :
-        <MobileHeader/>
+    isMobile || showMobile?
+      <MobileHeader/>:
+      <DesktopHeader/> 
   )
 }
 

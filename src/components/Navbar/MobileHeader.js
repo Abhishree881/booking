@@ -6,6 +6,11 @@ import { Button, Tooltip } from 'antd'
 import Link from 'next/link'
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
+import { useDispatch, useSelector } from 'react-redux'
+import { setShowPopup } from '@/redux/features/applicationSlice'
+import toast from 'react-hot-toast'
+import { setUser } from '@/redux/features/userSlice'
+import { useRouter } from "next/navigation";
 
 const MobileHeader = () => {
     const [openSidebar, setOpenSidebar] = useState(false);
@@ -38,6 +43,31 @@ const MobileHeader = () => {
 export default MobileHeader
 
 const MobileDropdown = () => {
+    const dispatch = useDispatch()
+    const { user } = useSelector((state) => state.user);
+    const router = useRouter();
+
+    const handleLoginClick = () => {
+        dispatch(setShowPopup({type: 'loginPopup', size: 'sm'}))
+    }
+
+    const handleSignOutClick = async () => {
+        try {
+            const response = await fetch('/api/auth/logout', {
+                method: 'DELETE',
+            })
+            if (response.ok) {
+                toast.success('Logout successful');
+                dispatch(setUser(null))
+                router.push('/')
+            } else {
+                toast.error('Something went wrong. Please try again later.');
+            }
+        } catch (error) {
+            toast.error('Something went wrong. Please try again later.');
+        }
+    }
+
     return (
         <div className='mobile-nav'>
             <div className='mobile-tiles'>
@@ -50,7 +80,11 @@ const MobileDropdown = () => {
                 <Link className='mobile-tile' href='/seat-map'>
                     SeatMap (Available seats)
                 </Link>
-                <Button type='primary' size='large'>LOGIN</Button>
+                {user ? (
+                    <Button onClick={handleSignOutClick} color='default' size='large' variant='filled'>LOGOUT</Button>
+                ) : (
+                <Button onClick={handleLoginClick} color='default' size='large' variant='solid'>LOGIN</Button>
+                )}
             </div>
         </div>
     )

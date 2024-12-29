@@ -1,6 +1,9 @@
+'use client'
+
 import React from 'react'
 import "@/styles/home.css"
 import SearchContainer from './SearchContainer'
+import { withAuth } from '@/utils/withAuth'
 
 const HomePage = () => {
   return (
@@ -22,4 +25,4 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+export default withAuth(HomePage)
