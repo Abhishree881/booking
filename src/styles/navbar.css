@@ -1,0 +1,98 @@
+.nav-container{
+    background-color: white;
+    height: 60px;
+}
+
+.navbar{
+    display: flex;
+    width: 90%;
+    height: 100%;
+    margin: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.nav-left{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 32px;
+
+    & .nav-logo{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 6px;
+        & .nav-title{
+            font-size: 20px;
+            font-weight: 600;
+        }
+    }
+
+    & .nav-links{
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        & .nav-link{
+            padding: 8px 12px;  
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s cubic-bezier(0.6, 0.04, 0.98, 0.335);
+            &:hover{
+              background-color: #ECF5EB;
+              font-weight: 500;
+            }
+        }
+    }
+}
+
+.nav-right{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+
+    & .nav-button{
+        cursor: pointer;
+        padding: 6px 8px;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+        &:hover{
+            background-color: #ECF5EB;
+            font-weight: 500;
+            transform: scale(1.05);
+        }
+    }
+}
+
+.mobile-nav{
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 250px;
+    background-color: white;
+    padding: 16px;
+    border-radius: 8px;
+    animation: fadeIn 0.2s ease forwards;
+    & .mobile-tiles{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        & .mobile-tile{
+            border-bottom: 1px solid #ececec;
+            padding: 6px 12px;
+            border-radius: 6px;
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
