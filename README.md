@@ -29,6 +29,8 @@ Before running this project, ensure you have the following installed on your loc
 - **Node.js** (>= 14.x)
 - **npm** or **yarn**
 - A Supabase project set up with the required database schema.
+- A Stytch account for user authentication.
+- A GCP project for oAuth authentication.
 
 ---
 
@@ -74,10 +76,16 @@ yarn install
 ### Step 3: Configure Environment Variables
 Create a `.env.local` file in the root of your project and add the following variables:
 ```env
-NEXT_PUBLIC_SUPABASE_URL=<Your Supabase URL>
-NEXT_PUBLIC_SUPABASE_ANON_KEY=<Your Supabase Public Anon Key>
+STYTCH_PROJECT_ID
+STYTCH_SECRET
+STYTCH_ENV
+NEXT_PUBLIC_STYTCH_PUBLIC_TOKEN
+NEXT_PUBLIC_APP_URL
+IRON_SESSION_COOKIE_PASSWORD
+IRON_SESSION_COOKIE_NAME
+SUPABASE_URL
+SUPABASE_API_KEY
 ```
-These values can be found in your Supabase project settings.
 
 ### Step 4: Start the Development Server
 ```bash
@@ -89,16 +97,9 @@ The server will run on `http://localhost:3000` by default.
 
 ---
 
-## Notes
-- Ensure the database schema matches the provided structure.
-- Supabase configuration is crucial for proper API functionality.
-
----
-
 ## Future Improvements
 - Add user authentication and role-based access control.
 - Implement additional validation and seat locking mechanisms for better concurrency handling.
-- Build a frontend for users to visualize and book seats interactively.
 
 ---
 
