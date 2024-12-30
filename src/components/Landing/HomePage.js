@@ -24,7 +24,7 @@ const HomePage = () => {
       <div className='about-developer'>
         Know more about the developer,&nbsp;<a href='https://abhishree-portfolio.web.app/' target='_blank'>here</a>
       </div>
-      {!user &&
+      {/* {!user &&
         <StytchLogin config={{
           products: ['oauth'],
           oauthOptions: {
@@ -34,7 +34,7 @@ const HomePage = () => {
             }],
           },
         }} />
-      }
+      } */}
     </div>
   )
 }
