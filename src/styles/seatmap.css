@@ -27,10 +27,13 @@
     & h1{
         font-size: 28px;
         font-weight: 600;
-        margin-bottom: 10px;
         position: sticky;
         top: 0;
         background-color: #ECF5EB;
+    }
+
+    & .seat-map__left__seats{
+        margin-bottom: 10px;
     }
 }
 
