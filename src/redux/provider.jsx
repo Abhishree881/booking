@@ -9,3 +9,5 @@ const ReduxProvider = ({children}) => {
 }
 
 export default ReduxProvider
+
+// creating redux provider to wrap the app

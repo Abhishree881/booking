@@ -1,3 +1,4 @@
+// top 50 stations in India from chat gpt
 export const stations = [
     { code: "NDLS", name: "New Delhi" },
     { code: "BCT", name: "Mumbai Central" },

@@ -32,7 +32,7 @@ const page = () => {
           toast.error(data.error)
           return;
         }
-        setTickets(data.tickets);
+        setTickets(data.tickets);  // Update the tickets state with the fetched data
       })
 
   }
@@ -51,18 +51,18 @@ const page = () => {
       toast.error(data.error);
       return;
     }
-    toast.success("Ticket cancelled successfully");
+    toast.success("Ticket cancelled successfully"); // after ticket is cancelled, we are again fetching the tickets
     fetchProfileTickets();
   }  
 
   useEffect(() => {
     if (user?.id) {
-      fetchProfileTickets()
+      fetchProfileTickets() //  this function is called to fetch the tickets of the user for initial rendering of the page
     }
   }, [user])
 
   if (!user) return;
-
+// this is the code for the profile page, profile page is completely built using antd to show skills of using different readymade components.
   return (
     <div className='profile-page'>
       <h3>Hello {user.name ? user.name : user.email}!</h3>

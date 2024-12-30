@@ -11,7 +11,7 @@ import PopupLayout from "./Popups/PopupLayout";
 const stytchClient = createStytchUIClient(
   process.env.NEXT_PUBLIC_STYTCH_PUBLIC_TOKEN
 );
-
+// creating a overall layout for the app with client side rendering
 function ClientLayout({children}){
   return (
     <StytchProvider stytch={stytchClient}>

@@ -3,8 +3,9 @@ import { Tag } from 'antd'
 import { useSelector } from 'react-redux';
 import "@/styles/confirmation.css"
 
+// booking confirmation popup with seat details
 const BookingConfirmationPopup = () => {
-    const {popupData} = useSelector((state) => state.application);
+    const {popupData} = useSelector((state) => state.application); // popup data for booking
   return (
     <div className="confirmation-popup">
       <h2>Booking Confirmation</h2>

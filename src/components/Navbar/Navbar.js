@@ -19,6 +19,8 @@ const Navbar = () => {
     })
   })
 
+  // showing navbar based on media
+
   return (
     isMobile || showMobile?
       <MobileHeader/>:

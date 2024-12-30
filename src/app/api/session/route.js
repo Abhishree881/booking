@@ -9,8 +9,8 @@ export async function GET(req) {
     const email = session.email ?? null;
     const name = session.name ?? null;
     const id = session.id ?? null;
-    const token = session.token ?? null;
-    if(email && name && id){
+    const token = session.token ?? null; // fetch all the data from the session
+    if(email && name && id){ /// if the user is logged in and email exist, it means that is oauth login as it does not provide jwt
       const session ={
         user_id: id,
         emails: [{email}],
@@ -18,14 +18,14 @@ export async function GET(req) {
           first_name: name
         }
       }
-      return NextResponse.json({ message:'Token verified successfully', session });
+      return NextResponse.json({ message:'Token verified successfully', session }); // return the session from cookie
     }
 
-    const response = await stytchClient.sessions.authenticate({
+    const response = await stytchClient.sessions.authenticate({ // authenticate the session for magicLink
         session_jwt: token,
     });
 
-    const res = NextResponse.json({ message: 'Token verified successfully', session: response.user });
+    const res = NextResponse.json({ message: 'Token verified successfully', session: response.user }); // return the session from jwt
     return res;
   } catch (error) {
     return NextResponse.json({ message: error?.error_message ? error.error_message: error }, { status: error.status_code });

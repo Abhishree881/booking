@@ -24,12 +24,12 @@ const PopupLayout = () => {
   const onClose = () => {
     dispacth(closePopup());
   };
-
+  // parent popup layout for all popup
   return (
     popupType === "loginPopup" && showPopup ?
       <div className='popup-container'>
         <div className='popup-container-inner'>
-
+          {/* using stytch for login popup */}
           <StytchLogin config={{
             products: ['oauth', 'emailMagicLinks'],
             oauthOptions: {

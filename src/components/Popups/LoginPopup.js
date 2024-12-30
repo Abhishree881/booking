@@ -27,7 +27,7 @@ const LoginPopup = () => {
           dispatch(closePopup());
         }
       };
-
+//  not in use, just for reference to show login api impleementation
   return (
     <div className='login-popup'>
       <div className='login-popup-content'>

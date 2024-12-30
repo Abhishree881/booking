@@ -16,7 +16,7 @@ const page = () => {
   const fetchApiData = async () => {
     setLoading(true)
     try {
-      const response = await fetch("/api/seats")
+      const response = await fetch("/api/seats") // fetching the seats
       const data = await response.json()
       const availableSeats = []
       data.availableSeats.forEach((seat) => {
@@ -30,7 +30,7 @@ const page = () => {
       for (let i = 0; i < numbers.length; i += 7) {
         rows.push(numbers.slice(i, i + 7));
       }
-      setRowSeats(rows)
+      setRowSeats(rows) // this is generating the rows of seats to show the seats in the required format
     } catch (error) {
       toast.error(error)
     }
@@ -42,19 +42,19 @@ const page = () => {
 
   const handleReset = async () => {
     try {
-      const response = await fetch("/api/tickets/reset")
+      const response = await fetch("/api/tickets/reset") // reset the seats
       if (response.ok) {
         toast.success("Seats Reset Successfully")
       } else {
         toast.error("Something went wrong")
       }
-      fetchApiData()
+      fetchApiData() // fetch the seats again
     } catch (error) {
       toast.error(error)
     }
   }
 
-
+  // this page shows the available seats and booked seats
   return (
     loading ? <Loader /> :
       <div className='seat-map-container'>

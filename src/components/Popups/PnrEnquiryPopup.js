@@ -16,7 +16,7 @@ const PnrEnquiryPopup = () => {
 
     setLoading(true);
     try {
-      await fetch(`/api/booking/pnr/${pnr}`).then((res) => res.json())
+      await fetch(`/api/booking/pnr/${pnr}`).then((res) => res.json()) // pnr api
       .then((data) => {
         if(data.error){
             toast.error(data.error)
@@ -33,6 +33,7 @@ const PnrEnquiryPopup = () => {
     }
   };
 
+  // pnr enquiry popup
   return (
     <>
       <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
@@ -52,7 +53,8 @@ const PnrEnquiryPopup = () => {
           <Spin size="large" />
         </div>
       )}
-
+      {/* loading spinner */}
+      {/* show booking details once pnr api is called */}
       {bookingDetails && !loading && (
         <div>
           <h3>Booking Details:</h3>

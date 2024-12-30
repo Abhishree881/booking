@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 
 const HomePage = () => {
   const {user} = useSelector((state) => state.user)
+  // this is the landing page for the website
   return (
     <div className='home-page-container'>
       <div className='landing-component'>

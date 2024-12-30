@@ -11,14 +11,15 @@ import { setShowPopup } from '@/redux/features/applicationSlice'
 import toast from 'react-hot-toast'
 import { setUser } from '@/redux/features/userSlice'
 import { useRouter } from "next/navigation";
-
+// navbar for mobile
 const MobileHeader = () => {
     const [openSidebar, setOpenSidebar] = useState(false);
 
     return (
         <div className='nav-container'>
             <div className='navbar'>
-                {openSidebar ? <MobileDropdown /> : null}
+                {openSidebar ? <MobileDropdown /> : null} 
+                {/* open dropdown with options */}
                 <div className='nav-left'>
                     <div className='nav-logo'>
                         <Image src={'/logo.png'} alt='logo' width={50} height={50} />
@@ -48,12 +49,12 @@ const MobileDropdown = () => {
     const router = useRouter();
 
     const handleLoginClick = () => {
-        dispatch(setShowPopup({ type: 'loginPopup', size: 'sm' }))
+        dispatch(setShowPopup({ type: 'loginPopup', size: 'sm' })) // show login popup
     }
 
     const handleSignOutClick = async () => {
         try {
-            const response = await fetch('/api/auth/logout', {
+            const response = await fetch('/api/auth/logout', { //  sign out
                 method: 'DELETE',
             })
             if (response.ok) {
@@ -70,7 +71,7 @@ const MobileDropdown = () => {
 
     const handleProfileClick = () => {
         if (!user) {
-            dispatch(setShowPopup({ type: "loginPopup", size: "sm" }))
+            dispatch(setShowPopup({ type: "loginPopup", size: "sm" })) // don't allow if not logged in
         } else {
             router.push('/profile')
         }

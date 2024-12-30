@@ -6,3 +6,5 @@ export const sessionOptions = {
         maxAge: 60 * 60 * 24 * 7, // 7 days
     }
 }
+
+// creating iron session options for storing session data

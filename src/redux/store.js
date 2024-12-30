@@ -8,3 +8,5 @@ export const store = configureStore({
         application: applicationReducer
     },
 });
+
+// creating redux store

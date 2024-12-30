@@ -16,12 +16,12 @@ const DesktopHeader = () => {
     const router = useRouter();
 
     const handleSignIn = () => {
-        dispatch(setShowPopup({ type: "loginPopup", size: "sm" }))
+        dispatch(setShowPopup({ type: "loginPopup", size: "sm" })) // show login popup
     }
 
     const handleSignOutClick = async () => {
         try {
-            const response = await fetch('/api/auth/logout', {
+            const response = await fetch('/api/auth/logout', { // sign out
                 method: 'DELETE',
             })
             if (response.ok) {
@@ -38,11 +38,13 @@ const DesktopHeader = () => {
 
     const handleProfileClick = () => {
         if(!user){
-            dispatch(setShowPopup({ type: "loginPopup", size: "sm" }))
+            dispatch(setShowPopup({ type: "loginPopup", size: "sm" })) // don't allow if not logged in
         }else{
             router.push('/profile')
         }
     }
+
+    // navbar for desktop
 
     return (
         <div className='nav-container'>

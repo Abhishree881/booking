@@ -3,12 +3,12 @@ import { NextResponse } from 'next/server'
 
 export async function GET(request, { params }) {
   try {
-    const { pnr } = params
+    const { pnr } = params // get pnr from params using dynamic routing
 
     const { data: tickets, error } = await supabaseClient
       .from('tickets')
       .select('seats')
-      .eq('id', pnr)
+      .eq('id', pnr) // filter by pnr
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 500 })

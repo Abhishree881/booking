@@ -18,6 +18,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${dmSans.variable} antialiased`}
       >
+        {/* Adding this layout component to use client side routing */}
         <ClientLayout>
           {children}
         </ClientLayout>

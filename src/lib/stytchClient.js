@@ -6,3 +6,5 @@ export const stytchClient = new Client({
   secret: process.env.STYTCH_SECRET,
   env: process.env.STYTCH_ENV === "test" ? stytch.envs.test : stytch.envs.live, 
 });
+
+// creating stytch client for authentication

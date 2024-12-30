@@ -6,7 +6,7 @@ export async function GET() {
     const { data, error } = await supabaseClient
       .from("coach_seats")
       .select("seat_number")
-      .eq("is_booked", false);
+      .eq("is_booked", false); // Filter seats that are not booked
 
     if (error) throw error;
 

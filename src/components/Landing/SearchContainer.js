@@ -30,18 +30,18 @@ const SearchContainer = () => {
                     station.code.toLowerCase().includes(value.toLowerCase())
             )
             .map((station) => ({ value: `${station.name} (${station.code})` }));
-        setOptions(filtered);
+        setOptions(filtered); // filter the options based on the search value
     };
 
     const swapLocations = () =>{
         if(fromStation === "" || toStation === "") return;
         const temp = fromStation ;
         setFromStation(toStation);
-        setToStation(temp);
+        setToStation(temp); 
     }
 
     const disablePastDates = (current) => {
-        return current && current < moment().startOf('day');
+        return current && current < moment().startOf('day'); // disable past dates
     };
 
     const handleSubmit = () =>{
@@ -49,20 +49,20 @@ const SearchContainer = () => {
             toast.error("Please login to book ticket");
             dispatch(setShowPopup({type: "loginPopup", size: "sm" }))
             return;
-        }
+        } // dont allow if user is not logged in
         if(fromStation==="" || toStation === "" || !date || !seats || seats == 0){
             const emptyField = fromStation === ""? "From station" : toStation === "" ? "To station" : !date?  "Date": "Seats";
             toast.error(`Don't leave ${emptyField} empty`)
             return;
-        } 
+        } // dont allow if any field is empty
         if(fromStation === toStation){
             toast.error("From and To station can't be same");
             return;
-        }
+        } // dont allow if from and to station are same
         if(seats > 7){
             toast.error("You can't book more than 7 seats at a time");
             return;
-        }
+        } // dont allow if seats are more than 7
         try{
             setLoading(true);
             fetch("/api/tickets/book", {
@@ -84,7 +84,7 @@ const SearchContainer = () => {
                         setFromStation("");
                         setToStation("");
                         setDate(null);
-                        setSeats(null);
+                        setSeats(null); // reset the form
                         dispatch(setShowPopup({type: "bookingConfirmationPopup", size: "sm", data: data.bookedSeatNumbers}))
                     }
                 })
@@ -99,8 +99,10 @@ const SearchContainer = () => {
         }
     }
     const handlePnrEnquiry = () => {
-        dispatch(setShowPopup({type: "pnrEnquiryPopup", size: "sm"}))
+        dispatch(setShowPopup({type: "pnrEnquiryPopup", size: "sm"})) // open pnr enquiry popup
     }
+
+    // search conatiner rendered on landing page
 
     return (
         <div className='search-container'>

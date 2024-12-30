@@ -9,13 +9,13 @@ export async function POST(req) {
     console.log(sessionOptions)
     const { token } = await req.json();
 
-    const response = await stytchClient.oauth.authenticate({ token });
+    const response = await stytchClient.oauth.authenticate({ token }); // authenticate the token
     const id = response.user.user_id;
     const email = response.user.emails[0].email;
-    const name = response.user.name.first_name;
+    const name = response.user.name.first_name; // store the session data instead of jwt token
     const { data, error } = await supabaseClient
       .from("users")
-      .upsert({ id, email, name }, { onConflict: "id" });
+      .upsert({ id, email, name }, { onConflict: "id" }); // upsert the user data to the database
 
     if (error) throw error;
 
@@ -26,7 +26,7 @@ export async function POST(req) {
     session.email = email;
     session.name = name;
 
-    await session.save();
+    await session.save(); // save the session in cookies
 
     return res;
   } catch (error) {

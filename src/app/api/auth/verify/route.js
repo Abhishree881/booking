@@ -11,7 +11,7 @@ export async function POST(req) {
     const response = await stytchClient.magicLinks.authenticate({
       token,
       session_duration_minutes: 60,
-    });
+    }); // authenticate the token
 
     const id = response.user.user_id;
     const email = response.user.emails[0].email;
@@ -20,13 +20,13 @@ export async function POST(req) {
       .from("users")
       .upsert({ id, email, name }, { onConflict: "id" });
 
-    if (error) throw error;
+    if (error) throw error; // upsert the user data to the database
 
     const res = NextResponse.json({ message: 'Token verified successfully', session: response.user });
 
     const session = await getIronSession(req, res, sessionOptions);
     session.token = response.session_jwt
-    await session.save();
+    await session.save(); // save the session in cookies
 
     return res
   } catch (error) {

@@ -32,3 +32,5 @@ const applicationSlice = createSlice({
 
 export const {closePopup, setShowPopup, setShowMobile} = applicationSlice.actions;
 export default applicationSlice.reducer;
+
+//  creating application slice to store application data
