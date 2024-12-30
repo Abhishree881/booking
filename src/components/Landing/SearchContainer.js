@@ -98,6 +98,9 @@ const SearchContainer = () => {
             toast.error(err.message);
         }
     }
+    const handlePnrEnquiry = () => {
+        dispatch(setShowPopup({type: "pnrEnquiryPopup", size: "sm"}))
+    }
 
     return (
         <div className='search-container'>
@@ -137,7 +140,7 @@ const SearchContainer = () => {
             </div>
             <div className='search-footer'>
                 <Button loading={loading} onClick={handleSubmit} size='large' type='primary'>Book</Button>
-                <Button size='large' type='default'>PNR Enquiry</Button>
+                <Button onClick={handlePnrEnquiry} size='large' type='default'>PNR Enquiry</Button>
             </div>
         </div>
     );

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { closePopup } from '@/redux/features/applicationSlice';
 import LoginPopup from './LoginPopup';
 import BookingConfirmationPopup from './BookingConfirmationPopup';
+import PnrEnquiryPopup from './PnrEnquiryPopup';
 
 const PopupLayout = () => {
     const {showPopup, popupType, popupSize} = useSelector((state) => state.application);
@@ -34,6 +35,9 @@ const PopupLayout = () => {
         }
         {
           popupType === "bookingConfirmationPopup" && <BookingConfirmationPopup/>
+        }
+        {
+          popupType === "pnrEnquiryPopup" && <PnrEnquiryPopup/>
         }
       </Modal>
     );
