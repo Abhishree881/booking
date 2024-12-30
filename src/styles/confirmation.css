@@ -1,0 +1,7 @@
+.confirmation-popup{
+    width: 100%;
+    & h2{
+        font-size: 28px;
+        font-weight: 600;
+    }
+}

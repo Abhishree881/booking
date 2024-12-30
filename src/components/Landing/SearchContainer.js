@@ -8,6 +8,8 @@ import { MdOutlineSwapVert } from "react-icons/md";
 import { stations } from './stationData';
 import moment from 'moment';
 import toast from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { setShowPopup } from '@/redux/features/applicationSlice';
 
 const SearchContainer = () => {
     const [fromOptions, setFromStationOptions] = useState([]);
@@ -15,6 +17,10 @@ const SearchContainer = () => {
     const [fromStation, setFromStation] = useState("");
     const [toStation, setToStation] = useState("");
     const [date, setDate] = useState(null);
+    const [seats, setSeats] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const {user} = useSelector((state) => state.user);
+    const dispatch = useDispatch();
 
     const handleSearch = (value, setOptions) => {
         const filtered = stations
@@ -39,11 +45,58 @@ const SearchContainer = () => {
     };
 
     const handleSubmit = () =>{
-        if(fromStation==="" || toStation === "" || !date){
-            const emptyField = fromStation === ""? "From station" : toStation === "" ? "To station" : "Date"
+        if(!user){
+            toast.error("Please login to book ticket");
+            dispatch(setShowPopup({type: "loginPopup", size: "sm" }))
+            return;
+        }
+        if(fromStation==="" || toStation === "" || !date || !seats || seats == 0){
+            const emptyField = fromStation === ""? "From station" : toStation === "" ? "To station" : !date?  "Date": "Seats";
             toast.error(`Don't leave ${emptyField} empty`)
             return;
         } 
+        if(fromStation === toStation){
+            toast.error("From and To station can't be same");
+            return;
+        }
+        if(seats > 7){
+            toast.error("You can't book more than 7 seats at a time");
+            return;
+        }
+        try{
+            setLoading(true);
+            fetch("/api/tickets/book", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userId: user.id,
+                    requiredSeats: seats,
+                }),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.error) {
+                        toast.error(data.error);
+                    } else {
+                        toast.success(data.message + "Booked Seats: " + data.bookedSeatNumbers);
+                        setFromStation("");
+                        setToStation("");
+                        setDate(null);
+                        setSeats(null);
+                        dispatch(setShowPopup({type: "bookingConfirmationPopup", size: "sm", data: data.bookedSeatNumbers}))
+                    }
+                })
+                .catch((err) => {
+                    toast.error(err.message);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        }catch(err){
+            toast.error(err.message);
+        }
     }
 
     return (
@@ -61,7 +114,7 @@ const SearchContainer = () => {
                         prefix={<IoNavigate />}
                         onChange={(value) => setFromStation(value)}
                     />
-                    <DatePicker size='large' disabledDate={disablePastDates} placeholder="Journey Date" onChange={(date) => setDate(date)}/>
+                    <DatePicker value={date} size='large' disabledDate={disablePastDates} placeholder="Journey Date" onChange={(date) => setDate(date)}/>
                 </div>
                 <div className='swap-row'>
                     <div onClick={swapLocations} className='swap-icon'>
@@ -79,10 +132,11 @@ const SearchContainer = () => {
                         prefix={<MdLocationOn />}
                         onChange={(value) => setToStation(value)}
                     />
+                    <Input value={seats} onChange={(e) => setSeats(e.target.value)} style={{width: "30%"}} size='large' placeholder='Seats' />
                 </div>
             </div>
             <div className='search-footer'>
-                <Button onClick={handleSubmit} size='large' type='primary'>Search</Button>
+                <Button loading={loading} onClick={handleSubmit} size='large' type='primary'>Book</Button>
                 <Button size='large' type='default'>PNR Enquiry</Button>
             </div>
         </div>

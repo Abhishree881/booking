@@ -3,6 +3,7 @@ import { Modal } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { closePopup } from '@/redux/features/applicationSlice';
 import LoginPopup from './LoginPopup';
+import BookingConfirmationPopup from './BookingConfirmationPopup';
 
 const PopupLayout = () => {
     const {showPopup, popupType, popupSize} = useSelector((state) => state.application);
@@ -30,6 +31,9 @@ const PopupLayout = () => {
       >
         {
             popupType === "loginPopup" && <LoginPopup/>
+        }
+        {
+          popupType === "bookingConfirmationPopup" && <BookingConfirmationPopup/>
         }
       </Modal>
     );
