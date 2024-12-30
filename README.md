@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Booking System API
 
-## Getting Started
+This project implements a seat booking system with the ability to reserve multiple seats at once, ensuring efficient booking and grouping of adjacent seats. It uses modern tools and a clean architecture for handling seat reservations and database interactions.
 
-First, run the development server:
+---
 
+## Tech Stack
+
+### Backend:
+- **Next.js**: Framework for building the server-side API endpoints.
+- **Supabase**: Backend-as-a-service platform for database management and authentication.
+
+### Database:
+- **PostgreSQL**: Database managed by Supabase, storing user, ticket, and seat information.
+
+### Language:
+- **JavaScript/Node.js**: For implementing backend logic and API endpoints.
+
+### Libraries:
+- **Supabase Client**: For interacting with the Supabase database.
+- **NextResponse**: To handle API responses in Next.js.
+- **Stytch**: For user authentication and management.
+
+---
+
+## Prerequisites
+
+Before running this project, ensure you have the following installed on your local system:
+- **Node.js** (>= 14.x)
+- **npm** or **yarn**
+- A Supabase project set up with the required database schema.
+
+---
+
+## Database Schema
+
+### `coach_seats` Table
+| Column       | Type    | Description                       |
+|--------------|---------|-----------------------------------|
+| `seat_number`| Integer | Unique seat number for each seat |
+| `is_booked`  | Boolean | Status of the seat (booked/free) |
+
+### `tickets` Table
+| Column    | Type    | Description                      |
+|-----------|---------|----------------------------------|
+| `pnr`     | String  | Unique identifier for the ticket |
+| `user_id` | String  | ID of the user who booked        |
+| `seats`   | Array   | Array of seat numbers booked     |
+
+### `users` Table
+| Column    | Type    | Description                      |
+|-----------|---------|----------------------------------|
+| `id`      | String  | Unique identifier for the user   |
+| `email`   | String  | Email id of the user             |
+| `name`    | String  | Name of the user                 |
+
+---
+
+## Setup and Running Locally
+
+### Step 1: Clone the Repository
+```bash
+git clone <repository-url>
+cd <repository-folder>
+```
+
+### Step 2: Install Dependencies
+```bash
+npm install
+# or
+yarn install
+```
+
+### Step 3: Configure Environment Variables
+Create a `.env.local` file in the root of your project and add the following variables:
+```env
+NEXT_PUBLIC_SUPABASE_URL=<Your Supabase URL>
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<Your Supabase Public Anon Key>
+```
+These values can be found in your Supabase project settings.
+
+### Step 4: Start the Development Server
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+The server will run on `http://localhost:3000` by default.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Notes
+- Ensure the database schema matches the provided structure.
+- Supabase configuration is crucial for proper API functionality.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Future Improvements
+- Add user authentication and role-based access control.
+- Implement additional validation and seat locking mechanisms for better concurrency handling.
+- Build a frontend for users to visualize and book seats interactively.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
+This project is licensed under the [MIT License](LICENSE).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
