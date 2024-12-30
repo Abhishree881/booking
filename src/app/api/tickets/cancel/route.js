@@ -3,13 +3,13 @@ import { supabaseClient } from "@/lib/supabaseClient";
 
 export async function POST(req) {
   try {
-    const { userId, seatNumbers } = await req.json();
+    const {pnr,  userId, seatNumbers } = await req.json();
 
     const { error: deleteError } = await supabaseClient
       .from("tickets")
       .delete()
-      .eq("user_id", userId)
-      .in("seat_number", seatNumbers);
+      .eq("id", pnr)
+      .eq("user_id", userId);
 
     if (deleteError) throw deleteError;
 
